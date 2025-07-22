@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { DataTable, DataTableSelectionChangeParams } from 'primereact/datatable';
+import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Paginator } from 'primereact/paginator';
 import { InputNumber } from 'primereact/inputnumber';
@@ -19,17 +19,17 @@ function App() {
 
   const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
   
-  const handleSelectionChange = (event: DataTableSelectionChangeParams) => {
+  const handleSelectionChange = (event: { value: Product[] }) => {
     const clickedRow = event.value?.[0];
     if (!clickedRow) return;
-
+  
     const merged = [...selectedProducts, clickedRow];
     const uniqueSelected = Array.from(new Map(merged.map(p => [p.id, p])).values());
     setSelectedProducts(uniqueSelected);
   
-
   };
   interface Product {
+    [x: string]: any;
     title: string;
     place_of_origin: string;
     artist_display: string;
